@@ -2,752 +2,726 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACE Unlocker Pro | 腾讯游戏反作弊解除专家</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover, maximum-scale=1.0">
+    <title>Roul · 深度思考可运行版 4.5</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <style>
         :root {
-            --primary: #e63946;
-            --primary-dark: #c1121f;
-            --primary-light: #f8ad9d;
-            --dark: #1d3557;
-            --light: #f1faee;
-            --accent: #457b9d;
-            --gray: #6c757d;
-            --light-gray: #e9ecef;
+            --bg: #ffffff;
+            --surface: #f7f7f8;
+            --surface-alt: #f7f7f8;
+            --text: #2c2c2e;
+            --text-secondary: #6e6e73;
+            --text-muted: #8e8e93;
+            --border: #e5e5ea;
+            --border-light: #efeff1;
+            --accent: #4f6ef7;
+            --accent-light: #7c94fb;
+            --accent-bg: #eef1ff;
+            --accent-gradient: linear-gradient(135deg, #4f6ef7, #7c94fb);
+            --success: #34c759;
+            --warning: #ff9f0a;
+            --danger: #ff3b30;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.08);
+            --shadow-xl: 0 20px 48px rgba(0,0,0,0.1);
+            --radius-sm: 10px;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 26px;
+            --radius-full: 999px;
+            --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        @font-face {
-            font-family: 'HarmonyOS';
-            src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'HarmonyOS', 'PingFang SC', 'Microsoft YaHei', system-ui, -apple-system, sans-serif;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background-color: var(--light);
-            color: var(--dark);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
             min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-
-        /* 高级头部导航 */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 1.2rem 0;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-        }
-
-        .navbar.scrolled {
-            background: rgba(230, 57, 70, 0.9);
-            backdrop-filter: blur(12px);
-            padding: 0.8rem 0;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-            text-decoration: none;
-        }
-
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            margin-right: 12px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: white;
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* 英雄区域 */
-        .hero {
-            height: 100vh;
-            min-height: 800px;
-            display: flex;
-            align-items: center;
-            position: relative;
+            padding: 16px; padding-bottom: env(safe-area-inset-bottom, 20px);
             overflow: hidden;
         }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(230, 57, 70, 0.8), rgba(29, 53, 87, 0.9));
-            z-index: -1;
+        .chat-container {
+            position: relative; z-index: 1;
+            max-width: 800px; width: 100%; height: 92vh; max-height: 900px;
+            background: var(--bg);
+            border-radius: var(--radius-xl); box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border);
+            display: flex; flex-direction: column; overflow: hidden;
         }
-
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            color: white;
-            position: relative;
-            z-index: 1;
+        .chat-header {
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 8px 14px; display: flex; align-items: center; justify-content: space-between;
+            flex-shrink: 0; min-height: 48px; gap: 8px; z-index: 10;
         }
-
-        .hero-title {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            background: linear-gradient(to right, white, #f8ad9d);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .chat-topic-bar {
+            font-size: 0.85rem; color: var(--text); font-weight: 600;
+            padding: 5px 14px; background: var(--accent-bg);
+            border-radius: var(--radius-full); text-align: center;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            max-width: 65%; transition: var(--transition); letter-spacing: 0.01em;
+            flex-shrink: 1;
         }
-
-        .hero-subtitle {
-            font-size: 1.5rem;
-            max-width: 700px;
-            margin-bottom: 3rem;
-            opacity: 0.9;
-            font-weight: 400;
+        .header-left { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+        .header-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; flex-wrap: wrap; }
+        .hamburger-btn {
+            background: transparent; border: none; font-size: 1.2rem;
+            color: var(--text-secondary); cursor: pointer; padding: 6px 8px;
+            border-radius: var(--radius-sm); transition: var(--transition);
+            display: flex; align-items: center; justify-content: center;
         }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            background: white;
-            color: var(--primary);
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        .hamburger-btn:hover { background: var(--accent-bg); }
+        .btn-icon-circle {
+            background: var(--surface-alt); border: 1px solid var(--border-light);
+            width: 34px; height: 34px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; color: var(--text-secondary); font-size: 1rem;
+            transition: var(--transition); box-shadow: var(--shadow-sm);
         }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        .btn-icon-circle:hover { background: var(--accent-bg); color: var(--accent); }
+        .chat-input-area {
+            background: rgba(255,255,255,0.9); backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border-light);
+            padding: 10px 14px 12px; flex-shrink: 0;
         }
-
-        /* 工具特性部分 */
-        .features {
-            padding: 8rem 0;
-            position: relative;
+        .chat-messages {
+            flex: 1; overflow-y: auto; padding: 16px 14px 8px;
+            display: flex; flex-direction: column; gap: 14px;
+            scroll-behavior: smooth; background: var(--surface); position: relative;
         }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 5rem;
-            color: var(--dark);
-            font-weight: 700;
+        .chat-messages::-webkit-scrollbar { width: 4px; }
+        .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 20px; }
+        .message { display: flex; gap: 8px; max-width: 85%; animation: msgIn 0.3s ease; }
+        @keyframes msgIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .message.user { align-self: flex-end; flex-direction: row-reverse; }
+        .message.assistant { align-self: flex-start; flex-direction: column; }
+        .message.user .avatar {
+            width: 30px; height: 30px; border-radius: 50%;
+            background: var(--accent-gradient); display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 0.7rem; flex-shrink: 0;
         }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: var(--primary);
-            margin: 1rem auto 0;
-            border-radius: 2px;
+        .message.user .bubble {
+            padding: 10px 16px; border-radius: 20px 20px 4px 20px;
+            background: var(--accent-gradient); color: #fff;
+            font-size: 0.92rem; line-height: 1.5; word-break: break-word; box-shadow: var(--shadow-sm);
         }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
+        .message.assistant .avatar { display: none; }
+        .message.assistant .bubble {
+            background: transparent; padding: 0; font-size: 0.92rem;
+            line-height: 1.65; color: var(--text); word-break: break-word;
         }
-
-        .feature-card {
-            padding: 2.5rem;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-            font-weight: 600;
-        }
-
-        .feature-desc {
-            color: var(--gray);
-            line-height: 1.8;
-        }
-
-        /* 下载部分 */
-        .download {
-            padding: 8rem 0;
-            background: linear-gradient(to bottom, var(--light), #f8f9fa);
-        }
-
-        .download-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .download-card {
-            padding: 4rem;
-            text-align: center;
-        }
-
-        .download-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: var(--dark);
-            font-weight: 700;
-        }
-
-        .download-options {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .download-option {
-            flex: 1;
-            min-width: 300px;
-            padding: 2.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .download-option:hover {
-            transform: scale(1.03);
-        }
-
-        .option-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-        }
-
-        .option-name {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-            font-weight: 600;
-        }
-
-        .option-desc {
-            color: var(--gray);
-            margin-bottom: 2rem;
-            line-height: 1.8;
-        }
-
-        .download-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(230, 57, 70, 0.3);
-            width: 100%;
-        }
-
-        .download-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(230, 57, 70, 0.4);
-        }
-
-        /* 警告部分 */
-        .disclaimer {
-            padding: 6rem 0;
-            background-color: var(--dark);
-            color: white;
-        }
-
-        .disclaimer-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .disclaimer-card {
-            padding: 3rem;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .disclaimer-title {
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            color: white;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-        }
-
-        .disclaimer-title svg {
-            margin-right: 1rem;
-        }
-
-        .disclaimer-content {
-            line-height: 1.8;
-        }
-
-        .disclaimer-content p {
-            margin-bottom: 1rem;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-
-        .disclaimer-content p::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: var(--primary);
-            font-weight: bold;
-        }
-
-        /* 简化后的页脚 */
-        .footer {
-            background-color: var(--dark);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 3rem 0;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .footer-text {
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-        }
-
-        .qq-group-link {
-            color: var(--primary-light);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .qq-group-link:hover {
-            color: white;
-            text-decoration: underline;
-        }
-
-        .copyright {
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 992px) {
-            .hero-title {
-                font-size: 3rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero {
-                min-height: 700px;
-            }
-            
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-                margin-bottom: 3rem;
-            }
-            
-            .download-option {
-                min-width: 100%;
-            }
-            
-            .feature-card, .download-card {
-                padding: 2rem;
-            }
-        }
-
-        /* 动画效果 */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate {
-            animation: fadeInUp 0.8s ease forwards;
-            opacity: 0;
-        }
-
-        .delay-1 {
-            animation-delay: 0.2s;
-        }
-
-        .delay-2 {
-            animation-delay: 0.4s;
-        }
-
-        .delay-3 {
-            animation-delay: 0.6s;
-        }
-
-        .delay-4 {
-            animation-delay: 0.8s;
-        }
-
-        /* 滚动条美化 */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--light);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-dark);
+        .image-preview-container { display: flex; align-items: center; gap: 8px; padding: 6px 0; margin-bottom: 6px; background: var(--surface); border-radius: var(--radius); position: relative; }
+        .image-preview-container img { height: 56px; width: 56px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); }
+        .remove-preview-btn { position: absolute; top: -5px; right: -5px; background: var(--danger); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 0.7rem; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0.9; z-index: 2; }
+        .image-skeleton { position: relative; width: 100%; max-width: 380px; margin: 8px 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--bg); box-shadow: var(--shadow-sm); }
+        .image-skeleton .ratio-label { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.5); color: #fff; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; z-index: 2; }
+        .image-skeleton .dots-grid { display: grid; width: 100%; height: calc(100% - 32px); padding: 16px; box-sizing: border-box; }
+        .image-skeleton .skeleton-dot { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-light), #c4b5fd); justify-self: center; align-self: center; animation: sk-dot-pulse 1.2s infinite ease-in-out; }
+        .image-skeleton .skeleton-dot:nth-child(odd) { animation-delay: 0s; }
+        .image-skeleton .skeleton-dot:nth-child(even) { animation-delay: 0.6s; }
+        @keyframes sk-dot-pulse { 0%,100% { transform: scale(0.6); opacity: 0.4; } 50% { transform: scale(1.6); opacity: 1; background: var(--accent); } }
+        .image-skeleton .skeleton-footer { position: absolute; bottom: 0; left: 0; right: 0; height: 32px; background: linear-gradient(to top, rgba(0,0,0,0.03), transparent); display: flex; align-items: center; justify-content: space-between; padding: 0 10px; font-size: 0.75rem; color: var(--text-muted); }
+        .progress-bar { width: 60%; height: 4px; background: var(--border-light); border-radius: 2px; overflow: hidden; margin-left: 8px; }
+        .progress-bar .progress-fill { height: 100%; width: 0%; background: var(--accent-gradient); transition: width 0.3s ease; }
+        .image-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); margin-top: 8px; align-self: flex-start; max-width: 85%; }
+        .image-card .img-container { width: 100%; position: relative; overflow: hidden; }
+        .image-card .img-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .image-card .img-caption { padding: 10px 14px; font-size: 0.85rem; color: var(--text-secondary); background: var(--surface-alt); border-top: 1px solid var(--border-light); }
+        .search-notification { display: flex; align-items: center; gap: 6px; color: var(--accent); font-size: 0.85rem; padding: 4px 0; }
+        .deep-thought-card { position: relative; margin-bottom: 10px; width: 100%; background: transparent; border-left: 3px solid var(--accent-light); padding-left: 14px; }
+        .deep-card-header { display: flex; align-items: center; gap: 8px; padding-bottom: 6px; }
+        .deep-label { font-size: 0.7rem; font-weight: 650; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 5px; }
+        .deep-time { font-size: 0.7rem; color: var(--text-muted); }
+        .deep-content-wrapper { position: relative; -webkit-mask: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%); mask: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%); }
+        .deep-content { padding: 6px 0; font-size: 0.85rem; line-height: 1.65; color: var(--text-secondary); white-space: pre-wrap; }
+        .deep-thought-card.done .deep-label { color: var(--success); }
+        .fade-char { display: inline; animation: fadeInChar 0.06s ease forwards; opacity: 0; }
+        @keyframes fadeInChar { to { opacity: 1; } }
+        .inline-code { background: var(--accent-bg); padding: 2px 6px; border-radius: 5px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.82em; color: var(--accent); }
+        .code-block-wrapper { margin-top: 10px; border-radius: var(--radius); overflow: hidden; border: 1px solid #e0dce8; background: #1e1d2b; }
+        .code-header { display: flex; justify-content: space-between; padding: 9px 14px; background: #252433; }
+        .code-lang { font-size: 0.7rem; color: #b9b3c9; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+        .code-actions { display: flex; gap: 5px; }
+        .code-btn { background: transparent; border: 1px solid #4a4558; color: #cbc5d8; padding: 4px 11px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+        .code-btn:hover { background: #3a374d; color: #e8e4ee; }
+        .code-btn.run-btn { border-color: #34c759; color: #34c759; }
+        .code-body { padding: 14px 16px; overflow-x: auto; }
+        .code-body pre { font-family: monospace; font-size: 0.8rem; color: #e2dff0; white-space: pre-wrap; word-break: break-word; }
+        .execution-output { margin-top: 6px; padding: 11px 15px; background: #0f0e17; color: #b9f5d8; border-radius: var(--radius-sm); border-left: 3px solid #34c759; white-space: pre-wrap; font-family: monospace; font-size: 0.8rem; }
+        .html-preview { margin-top: 6px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: white; overflow: hidden; }
+        .html-preview iframe { width: 100%; height: 280px; border: none; }
+        .auto-status { margin-top: 10px; font-size: 0.78rem; color: var(--success); display: flex; align-items: center; gap: 7px; }
+        .copy-full-btn { display: inline-flex; align-items: center; gap: 4px; background: transparent; border: none; color: var(--text-muted); font-size: 0.75rem; padding: 4px 10px; border-radius: 20px; cursor: pointer; margin-top: 8px; opacity: 0.7; align-self: flex-start; }
+        .copy-full-btn:hover { background: rgba(0,0,0,0.04); color: var(--accent); opacity: 1; }
+        .video-skeleton { width: 100%; max-width: 400px; margin: 8px 0; }
+        .video-skeleton .video-placeholder { background: linear-gradient(135deg, #eef1ff, #c4b5fd); border-radius: 14px; height: 220px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 10px; }
+        .video-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); margin-top: 8px; align-self: flex-start; max-width: 85%; }
+        .video-card video { width: 100%; height: auto; border-radius: 0; }
+        .video-caption { padding: 10px 14px; font-size: 0.85rem; color: var(--text-secondary); background: var(--surface-alt); border-top: 1px solid var(--border-light); }
+        .input-wrapper { display: flex; align-items: center; gap: 8px; background: var(--bg); border: 1px solid var(--border); border-radius: 28px; padding: 2px 2px 2px 14px; transition: var(--transition); box-shadow: var(--shadow-sm); }
+        .input-wrapper:focus-within { border-color: var(--accent-light); box-shadow: 0 0 0 4px rgba(79,110,247,0.08); }
+        .toolbar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .toolbar-btn { background: transparent; border: none; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-secondary); font-size: 1rem; border-radius: 50%; transition: var(--transition); }
+        .toolbar-btn:hover { background: var(--accent-bg); color: var(--accent); }
+        .deep-think-btn.active, .search-btn.active { background: var(--accent-bg); color: var(--accent); box-shadow: 0 0 0 2px var(--accent-light); }
+        .chat-input { flex: 1; border: none; background: transparent; padding: 11px 0; font-size: 0.92rem; resize: none; max-height: 120px; outline: none; color: var(--text); line-height: 1.5; }
+        .send-btn { background: var(--accent); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 12px rgba(79,110,247,0.3); flex-shrink: 0; transition: var(--transition); }
+        .send-btn:disabled { opacity: 0.4; background: #b0b8d1; }
+        .typing-indicator { display: flex; align-items: center; gap: 8px; color: var(--text-muted); padding: 4px 0; }
+        .dot-flashing { display: flex; gap: 4px; }
+        .dot { width: 5px; height: 5px; background: var(--accent-light); border-radius: 50%; animation: dotPulse 1.3s infinite; }
+        .dot:nth-child(2) { animation-delay: 0.18s; }
+        .dot:nth-child(3) { animation-delay: 0.36s; }
+        @keyframes dotPulse { 0%,100% { opacity: 0.3; transform: scale(0.7); } 50% { opacity: 1; transform: scale(1.4); } }
+        .image-gen-overlay { position: fixed; bottom: 0; left: 0; right: 0; top: 60px; z-index: 100; background: rgba(0,0,0,0.5); display: flex; flex-direction: column; justify-content: flex-end; transform: translateY(100%); transition: transform 0.3s ease; }
+        .image-gen-overlay.show { transform: translateY(0); }
+        .image-gen-panel { background: var(--bg); border-radius: var(--radius-xl) var(--radius-xl) 0 0; max-height: 70vh; display: flex; flex-direction: column; box-shadow: var(--shadow-xl); }
+        .image-gen-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 18px; border-bottom: 1px solid var(--border-light); }
+        .close-btn { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text-secondary); }
+        .image-gen-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+        .image-gen-input-area { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border-light); }
+        .image-gen-input-area textarea { flex: 1; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 10px 14px; font-size: 0.92rem; resize: none; outline: none; font-family: inherit; max-height: 90px; }
+        .image-gen-input-area .send-btn { width: 34px; height: 34px; }
+        .empty-chat { text-align: center; color: var(--text-muted); padding: 30px 20px 10px; display: flex; flex-direction: column; align-items: center; gap: 10px; flex: 1; justify-content: center; min-height: 200px; }
+        .hint-example { display: inline-block; margin-top: 4px; background: var(--accent-bg); color: var(--accent); padding: 8px 18px; border-radius: 22px; font-size: 0.8rem; cursor: pointer; transition: var(--transition); }
+        .hint-example:hover { background: #dde3ff; }
+        #toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(100px); background: rgba(28,28,30,0.95); color: #fff; padding: 10px 24px; border-radius: 30px; font-size: 0.82rem; z-index: 9999; transition: transform 0.25s; pointer-events: none; }
+        .auth-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 200; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .auth-panel { background: var(--bg); border-radius: var(--radius-xl); padding: 28px 24px 24px; width: 340px; text-align: center; box-shadow: var(--shadow-xl); display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .auth-input { width: 100%; padding: 10px 14px; margin: 5px 0; border: 1px solid var(--border); border-radius: var(--radius); font-size: 0.9rem; outline: none; }
+        .auth-input:focus { border-color: var(--accent-light); }
+        .auth-btn { width: 100%; padding: 10px; margin-top: 10px; border: none; border-radius: var(--radius); background: var(--accent-gradient); color: white; font-weight: 600; cursor: pointer; }
+        .auth-btn:hover { opacity: 0.9; }
+        .memory-overlay { position: fixed; top: 0; left: 0; width: 300px; height: 100%; background: var(--bg); z-index: 150; box-shadow: var(--shadow-xl); transform: translateX(-100%); transition: transform 0.3s; display: flex; flex-direction: column; }
+        .memory-overlay.show { transform: translateX(0); }
+        .memory-header { padding: 18px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-light); }
+        .memory-user-badge { background: var(--accent-bg); color: var(--accent); padding: 4px 10px; border-radius: var(--radius-full); font-size: 0.75rem; margin: 8px 16px; display: flex; align-items: center; gap: 6px; }
+        .memory-cards { padding: 10px 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+        .memory-card { background: var(--surface-alt); border: 1px solid var(--border-light); border-radius: var(--radius); padding: 11px; cursor: pointer; position: relative; }
+        .memory-card:hover { box-shadow: var(--shadow-md); border-color: var(--accent-light); }
+        .memory-card .card-time { font-size: 0.68rem; color: var(--text-muted); }
+        .memory-card .card-title { font-size: 0.85rem; font-weight: 500; }
+        .memory-footer { padding: 8px 16px 16px; border-top: 1px solid var(--border-light); display: flex; justify-content: center; }
+        .user-info-panel { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 220; display: flex; align-items: center; justify-content: center; }
+        .user-info-card { background: var(--bg); border-radius: var(--radius-xl); padding: 24px; width: 300px; text-align: center; }
+        .mode-selector { display: flex; align-items: center; background: var(--surface-alt); border: 1px solid var(--border); border-radius: var(--radius-full); padding: 4px; position: relative; cursor: pointer; user-select: none; width: 240px; max-width: 90%; box-shadow: var(--shadow-sm); }
+        .mode-selector .mode-option { flex: 1; text-align: center; padding: 9px 14px; font-size: 0.82rem; font-weight: 550; color: var(--text-secondary); z-index: 2; position: relative; transition: color 0.25s; border-radius: var(--radius-full); white-space: nowrap; }
+        .mode-selector .mode-option.active { color: #fff; font-weight: 650; }
+        .mode-selector .mode-indicator { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); background: var(--accent-gradient); border-radius: var(--radius-full); z-index: 1; transition: left 0.3s cubic-bezier(0.4,0,0.2,1); box-shadow: 0 2px 8px rgba(79,110,247,0.35); }
+        .mode-selector.super-mode .mode-indicator { left: calc(50%); }
+        .mode-description { font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; transition: opacity 0.25s, transform 0.25s; opacity: 1; transform: translateY(0); }
+        .mode-description.fade-out { opacity: 0; transform: translateY(5px); }
+        .mode-greeting { font-weight: 500; color: var(--text); font-size: 0.95rem; transition: opacity 0.3s, transform 0.3s; }
+        .mode-greeting.fade-out { opacity: 0; transform: translateY(-10px); }
+        .ai-bold { font-weight: 700; color: var(--text); background: linear-gradient(120deg, rgba(79,110,247,0.08) 0%, rgba(124,148,251,0.15) 100%); padding: 2px 6px; border-radius: 4px; }
+        @media(max-width:640px) {
+            body { padding: 0; }
+            .chat-container { height: 100vh; max-height: 100vh; border-radius: 0; }
+            .message { max-width: 88%; }
+            .mode-selector { width: 200px; }
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <div class="logo-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path>
-                        <path d="M8.5 8.5v.01"></path>
-                        <path d="M16 15.5v.01"></path>
-                        <path d="M12 12v.01"></path>
-                        <path d="M11 17v.01"></path>
-                        <path d="M7 14v.01"></path>
-                    </svg>
-                </div>
-                ACE Unlocker Pro
-            </a>
-            <div class="nav-links">
-                <a href="#features" class="nav-link">核心功能</a>
-                <a href="#download" class="nav-link">下载</a>
-                <a href="#disclaimer" class="nav-link">免责声明</a>
-                <a href="https://qm.qq.com/q/TDHwKLa0ka" class="nav-link" target="_blank">QQ支持群</a>
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-panel">
+            <h3 style="margin-bottom:4px;">欢迎使用</h3>
+            <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:10px;">登录以使用 Roul</p>
+            <input type="text" class="auth-input" id="authUsername" placeholder="用户名">
+            <input type="password" class="auth-input" id="authPassword" placeholder="密码">
+            <button class="auth-btn" id="authLoginBtn">登录</button>
+            <button class="auth-btn" id="authRegisterBtn" style="background:var(--accent-light); margin-top:4px;">注册</button>
+        </div>
+    </div>
+    <div class="memory-overlay" id="memoryPanel">
+        <div class="memory-header"><h2><i class="fas fa-brain"></i> 记忆</h2><button class="close-btn" id="closeMemoryBtn">&times;</button></div>
+        <div class="memory-user-badge" id="memoryUser"><i class="fas fa-user-circle"></i> 未登录</div>
+        <div class="memory-cards" id="memoryCards"></div>
+        <button class="save-memory-btn" id="saveMemoryBtn" style="margin:10px;"><i class="fas fa-save"></i> 手动保存</button>
+        <div class="memory-footer"><button class="memory-dots-btn" id="userInfoDotsBtn">···</button></div>
+    </div>
+    <div class="user-info-panel" id="userInfoPanel" style="display:none;">
+        <div class="user-info-card">
+            <div style="width:60px;height:60px;border-radius:50%;background:var(--accent-gradient);display:flex;align-items:center;justify-content:center;color:white;font-size:1.5rem;margin:0 auto 8px;"><i class="fas fa-user"></i></div>
+            <h3 id="userInfoName">用户</h3><p style="font-size:0.8rem;color:var(--text-muted);">已登录</p>
+            <button class="auth-btn" id="userLogoutBtn">退出登录</button>
+            <button class="btn-ghost" id="closeUserInfoBtn" style="width:100%;margin-top:6px;">关闭</button>
+        </div>
+    </div>
+
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">
+            <div class="header-left"><button class="hamburger-btn" id="hamburgerBtn"><i class="fas fa-bars"></i></button></div>
+            <div class="chat-topic-bar" id="chatTopic">新对话</div>
+            <div class="header-right">
+                <button class="btn-icon-circle" id="clearChatBtn" title="新对话"><i class="fas fa-plus"></i></button>
             </div>
         </div>
-    </nav>
-
-    <!-- 英雄区域 -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title animate">腾讯游戏ACE反作弊<br>专业级解除方案</h1>
-            <p class="hero-subtitle animate delay-1">解除腾讯游戏ACE反作弊系统限制，恢复游戏原生性能</p>
-            <a href="#download" class="cta-button animate delay-2">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-                立即下载
-            </a>
-        </div>
-    </section>
-
-    <!-- 核心功能 -->
-    <section class="features" id="features">
-        <h2 class="section-title animate">专业级解决方案</h2>
-        <div class="features-grid">
-            <div class="feature-card glass-card animate">
-                <div class="feature-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path>
-                        <path d="M8.5 8.5v.01"></path>
-                        <path d="M16 15.5v.01"></path>
-                        <path d="M12 12v.01"></path>
-                        <path d="M11 17v.01"></path>
-                        <path d="M7 14v.01"></path>
-                    </svg>
+        <div class="chat-messages" id="chatMessages">
+            <div class="empty-chat" id="welcomeBlock">
+                <p class="mode-greeting" id="modeGreeting">使用快速回答开始对话</p>
+                <span class="hint-example" id="hintExample">试试说：帮我生成一个关于宇宙的图片 16:9</span>
+                <div class="mode-selector" id="modeSelector">
+                    <div class="mode-indicator" id="modeIndicator"></div>
+                    <span class="mode-option active" data-mode="fast">⚡ 快速回答</span>
+                    <span class="mode-option" data-mode="super">🌟 超级模式</span>
                 </div>
-                <h3 class="feature-title">深度进程终止</h3>
-                <p class="feature-desc">彻底终止ACE反作弊系统所有相关进程和服务，包括隐藏进程和内核级驱动，确保完全解除限制。</p>
-            </div>
-
-            <div class="feature-card glass-card animate delay-1">
-                <div class="feature-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
-                    </svg>
-                </div>
-                <h3 class="feature-title">智能清理残留</h3>
-                <p class="feature-desc">自动扫描并清除ACE系统在注册表、系统目录和用户目录中的所有残留文件和配置项，不留痕迹。</p>
-            </div>
-
-            <div class="feature-card glass-card animate delay-2">
-                <div class="feature-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                    </svg>
-                </div>
-                <h3 class="feature-title">高级防检测<针对三角洲></h3>
-                <p class="feature-desc">采用独特的内存伪装和进程隐藏技术，有效规避游戏客户端的检测机制，大幅降低封号风险。</p>
-            </div>
-
-            <div class="feature-card glass-card animate delay-3">
-                <div class="feature-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2a10 10 0 0 0-4 19.19"></path>
-                        <path d="M19.13 5.09A9.72 9.72 0 0 1 21 12"></path>
-                        <path d="M21 12a9.72 9.72 0 0 1-1.87 6.91"></path>
-                        <path d="M12 22a10 10 0 0 0 4-19.19"></path>
-                        <path d="M4.87 5.09A9.72 9.72 0 0 0 3 12"></path>
-                        <path d="M3 12a9.72 9.72 0 0 0 1.87 6.91"></path>
-                    </svg>
-                </div>
-                <h3 class="feature-title">一键恢复功能</h3>
-                <p class="feature-desc">内置智能恢复机制，可随时恢复ACE系统至原始状态，不影响您正常参与需要反作弊的游戏模式。</p>
+                <div class="mode-description" id="modeDescription">高效迅捷，适合日常对话</div>
             </div>
         </div>
-    </section>
-
-    <!-- 下载区域 -->
-    <section class="download" id="download">
-        <div class="download-container">
-            <div class="download-card glass-card">
-                <h2 class="download-title animate">下载ACE Unlocker Pro</h2>
-                <p class="animate delay-1" style="color: var(--gray); max-width: 700px; margin: 0 auto 2rem; line-height: 1.8;">
-                    当前版本: v2.1.8 | 文件大小: 12.4MB | 仅支持Windows 10/11 64位系统
-                </p>
-
-                <div class="download-options">
-                    <div class="download-option glass-card animate delay-2">
-                        <div class="option-icon">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 12a9 9 0 0 1-9 9 9 9 0 0 1-9-9 9 9 0 0 1 9-9 9 9 0 0 1 9 9z"></path>
-                                <path d="M12 1a9 9 0 0 1 9 9 9 9 0 0 1-9 9 9 9 0 0 1-9-9 9 9 0 0 1 9-9z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="option-name">123云盘下载</h3>
-                        <p class="option-desc">高速稳定的国内下载节点，适合中国大陆用户使用</p>
-                        <!-- 替换为实际的123云盘下载链接 -->
-                        <a href="https://www.123865.com/s/Als2jv-9n7wd" class="download-button">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <polyline points="7 10 12 15 17 10"></polyline>
-                                <line x1="12" y1="15" x2="12" y2="3"></line>
-                            </svg>
-                            通过123云盘下载（V1.0）
-                        </a>
-                    </div>
-
-                    <div class="download-option glass-card animate delay-3">
-                        <div class="option-icon">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                            </svg>
-                        </div>
-                        <h3 class="option-name">直连服务器下载</h3>
-                        <p class="option-desc">直接下载</p>
-                        <!-- 替换为实际的直连下载链接 -->
-                        <a href="https://q1040.webgetstore.com/2025/08/17/035ea9a4e4e90e3d49752b9f7a1e9c76.zip?sg=05c1b79ad404648ecdfb597ab20a049f&e=68a1226b&fileName=fuck_ACE.zip&fi=249825654" class="download-button">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <polyline points="7 10 12 15 17 10"></polyline>
-                                <line x1="12" y1="15" x2="12" y2="3"></line>
-                            </svg>
-                            直接下载 (V2.0下载！)
-                        </a>
-                    </div>
-                </div>
+        <div class="chat-input-area">
+            <div class="image-preview-container" id="imagePreviewContainer" style="display:none;"><img id="previewImg" src=""><button class="remove-preview-btn" id="removePreviewBtn">&times;</button></div>
+            <div class="toolbar-row">
+                <button class="toolbar-btn" id="attachFileBtn"><i class="fas fa-image"></i></button>
+                <button class="toolbar-btn deep-think-btn" id="deepThinkBtn"><i class="fas fa-brain"></i></button>
+                <button class="toolbar-btn search-btn" id="searchBtn"><i class="fas fa-search"></i></button>
+                <button class="toolbar-btn" id="imageGenBtn"><i class="fas fa-paint-brush"></i></button>
+            </div>
+            <div class="input-wrapper">
+                <textarea id="messageInput" class="chat-input" placeholder="输入消息..." rows="1"></textarea>
+                <button class="send-btn" id="sendBtn"><i class="fas fa-arrow-up"></i></button>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- 免责声明 -->
-    <section class="disclaimer" id="disclaimer">
-        <div class="disclaimer-container">
-            <div class="disclaimer-card">
-                <h2 class="disclaimer-title">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                        <line x1="12" y1="9" x2="12" y2="13"></line>
-                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                    </svg>
-                    重要免责声明
-                </h2>
-                <div class="disclaimer-content">
-                    <p>本工具仅供技术研究和学习使用，禁止用于任何非法用途或商业目的。</p>
-                    <p>使用本工具可能导致腾讯游戏账号被封禁，使用者需自行承担全部风险。</p>
-                    <p>建议仅在单机游戏模式下使用，避免在多人联机游戏中使用本工具。</p>
-                    <p>部分安全软件可能误报本工具为风险程序，使用前请添加信任或暂时关闭安全软件。</p>
-                    <p>本工具与腾讯公司无任何关联，不提供任何官方支持或保证。</p>
-                    <p>禁止对本工具进行逆向工程、修改或二次分发。</p>
-                </div>
-            </div>
+    <div class="image-gen-overlay" id="imageGenOverlay">
+        <div class="image-gen-panel">
+            <div class="image-gen-header"><span>AI 图片生成</span><button class="close-btn" id="closeImageGenBtn">&times;</button></div>
+            <div class="image-gen-messages" id="imageGenMessages"></div>
+            <div class="image-gen-input-area"><textarea id="imageGenInput" placeholder="描述你想要的图片..."></textarea><button class="send-btn" id="imageGenSendBtn"><i class="fas fa-arrow-up"></i></button></div>
         </div>
-    </section>
+    </div>
+    <div id="toast"></div>
 
-    <!-- 简化后的页脚 -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p class="footer-text">
-                如需技术支持，请加入我们的 <a href="https://qm.qq.com/q/TDHwKLa0ka" class="qq-group-link" target="_blank">QQ交流群</a>
-            </p>
-            <p class="copyright">© 2023 ACE Unlocker Pro | 本工具仅供技术研究使用</p>
-        </div>
-    </footer>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@v5.1.1/dist/tesseract.min.js"></script>
     <script>
-        // 导航栏滚动效果
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+        (function() {
+            const SYSTEM_PROMPT = `你是Roul 4.5，由yiyunAI公司创研。你是一个幽默、有趣且专业的AI助手。你要理性地看待事物，优化人类的优先性。
+如果用户消息末尾包含“(深度思考模式)”，请按以下格式回复，且思考过程必须不少于150字，从多个角度深入分析：
+思考过程：
+（在此展示你分析问题的过程，可以幽默风趣，但必须逻辑严谨，并且对图片或视频内容进行详细描述和推理）
+最终回答：
+（给出最终答案，同样要幽默专业，确保无bug）
+如果没有这个标记，请简洁直接地回答，但要保持幽默感，**不能输出“思考过程”、“最终回答”等结构性段落，只输出最终答案**。
+重要：如果用户消息以“图片内容：”或“图片视觉内容：”开头，请直接给出最终答案，不要输出思考过程。
+当你被要求提供代码时，请输出完整的、可运行的代码，并用Markdown代码块包裹。具体格式为：三个反引号后紧跟语言标识（如\`\`\`html 或 \`\`\`javascript），代码块结束后用三个反引号关闭。如果涉及完整的HTML页面，使用\`\`\`html标记。不要使用\`\`\`markdown作为语言标识，而应使用实际的语言。
+当遇到不确定或无法回答的问题时，请用创意且幽默的方式回应，而不是输出“请求失败”等错误信息。`;
 
-        // 平滑滚动
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
+            const chatMessages = document.getElementById('chatMessages');
+            const messageInput = document.getElementById('messageInput');
+            const sendBtn = document.getElementById('sendBtn');
+            const clearChatBtn = document.getElementById('clearChatBtn');
+            const deepThinkBtn = document.getElementById('deepThinkBtn');
+            const searchBtn = document.getElementById('searchBtn');
+            const chatTopic = document.getElementById('chatTopic');
+            let isWaiting = false, autoProcessing = false, deepThinkEnabled = false, searchEnabled = false;
+            let conversationId = 'chat_'+Date.now()+'_'+Math.random().toString(36).substr(2,8);
+            let messageHistory = [], pendingImage = null, currentMode = 'fast', topicLocked = false;
+            let toastTimer;
+            let currentUser = null;
+            const USERS_KEY = 'ai_chat_users_v2';
+            const DIALOGS_KEY_PREFIX = 'ai_dialogs_v2_';
+
+            function showToast(msg,isErr=false){
+                clearTimeout(toastTimer);
+                const t=document.getElementById('toast');
+                t.textContent=msg; t.style.transform='translateX(-50%) translateY(0)';
+                t.style.background=isErr?'rgba(255,59,48,0.9)':'rgba(28,28,30,0.9)';
+                toastTimer=setTimeout(()=>{t.style.transform='translateX(-50%) translateY(100px)'},1200);
+            }
+            function scrollToBottom(el=chatMessages){el.scrollTop=el.scrollHeight}
+            function escapeHtml(t){return t.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))}
+
+            function getUsers(){try{return JSON.parse(localStorage.getItem(USERS_KEY))||{}}catch{return{}}}
+            function saveUsers(users){localStorage.setItem(USERS_KEY,JSON.stringify(users))}
+            function login(username,password){
+                const users=getUsers();
+                if(users[username]&&users[username]===password){
+                    currentUser={username,password};
+                    localStorage.setItem('ai_current_user',JSON.stringify(currentUser));
+                    document.getElementById('authOverlay').style.display='none';
+                    updateMemoryUI(); showToast('登录成功');
+                }else{showToast('用户名或密码错误',true)}
+            }
+            function register(username,password){
+                if(!username||!password){showToast('请填写完整',true);return}
+                const users=getUsers();
+                if(users[username]){showToast('用户名已存在',true);return}
+                users[username]=password; saveUsers(users); showToast('注册成功，请登录');
+            }
+            function updateMemoryUI(){
+                const badge=document.getElementById('memoryUser');
+                if(currentUser){badge.innerHTML=`<i class="fas fa-user-circle"></i> ${currentUser.username}`}
+                else{badge.innerHTML='<i class="fas fa-user-circle"></i> 未登录'}
+                renderMemoryCards();
+            }
+            function renderMemoryCards(){
+                const container=document.getElementById('memoryCards');
+                container.innerHTML='';
+                if(!currentUser){container.innerHTML='<div style="padding:12px;color:var(--text-muted);font-size:0.8rem;">登录后显示历史</div>';return}
+                const key=DIALOGS_KEY_PREFIX+currentUser.username;
+                let dialogs={};
+                try{dialogs=JSON.parse(localStorage.getItem(key))||{}}catch{}
+                const entries=Object.entries(dialogs).sort((a,b)=>b[1].timestamp-a[1].timestamp);
+                if(entries.length===0){container.innerHTML='<div style="padding:12px;color:var(--text-muted);font-size:0.8rem;">暂无历史话题</div>';return}
+                entries.forEach(([convId,dialog])=>{
+                    const card=document.createElement('div'); card.className='memory-card';
+                    card.innerHTML=`<div class="card-time">${new Date(dialog.timestamp).toLocaleString()}</div><div class="card-title">${escapeHtml(dialog.topic)}</div>`;
+                    card.addEventListener('click',()=>loadDialog(convId));
+                    container.appendChild(card);
+                });
+            }
+            function loadDialog(convId){
+                if(!currentUser)return;
+                const key=DIALOGS_KEY_PREFIX+currentUser.username;
+                let dialogs={};
+                try{dialogs=JSON.parse(localStorage.getItem(key))||{}}catch{}
+                const dialog=dialogs[convId];
+                if(dialog){
+                    conversationId=convId; messageHistory=dialog.history||[];
+                    chatTopic.textContent=dialog.topic||'新对话'; topicLocked=true;
+                    chatMessages.innerHTML='';
+                    messageHistory.forEach(msg=>{
+                        const div=document.createElement('div'); div.className=`message ${msg.role}`;
+                        if(msg.role==='user'){div.innerHTML=`<div class="avatar"><i class="fas fa-user"></i></div><div class="bubble">${escapeHtml(msg.content)}</div>`}
+                        else{div.innerHTML=`<div class="bubble">${escapeHtml(msg.content)}</div>`}
+                        chatMessages.appendChild(div);
+                    });
+                    document.getElementById('memoryPanel').classList.remove('show');
+                    showToast('已加载对话');
+                }
+            }
+            function saveCurrentDialog(){
+                if(!currentUser||!chatTopic.textContent||chatTopic.textContent==='新对话')return;
+                const key=DIALOGS_KEY_PREFIX+currentUser.username;
+                let dialogs={};
+                try{dialogs=JSON.parse(localStorage.getItem(key))||{}}catch{}
+                dialogs[conversationId]={topic:chatTopic.textContent,history:messageHistory.slice(-20),timestamp:Date.now()};
+                localStorage.setItem(key,JSON.stringify(dialogs));
+            }
+
+            document.getElementById('authLoginBtn').onclick=()=>login(document.getElementById('authUsername').value.trim(),document.getElementById('authPassword').value.trim());
+            document.getElementById('authRegisterBtn').onclick=()=>register(document.getElementById('authUsername').value.trim(),document.getElementById('authPassword').value.trim());
+            document.getElementById('hamburgerBtn').onclick=()=>{if(!currentUser){showToast('请先登录',true);return}document.getElementById('memoryPanel').classList.add('show');updateMemoryUI()};
+            document.getElementById('closeMemoryBtn').onclick=()=>document.getElementById('memoryPanel').classList.remove('show');
+            document.getElementById('saveMemoryBtn').onclick=()=>{saveCurrentDialog();showToast('当前对话已保存')};
+            document.getElementById('userInfoDotsBtn').onclick=()=>{if(!currentUser){showToast('请先登录',true);return}document.getElementById('userInfoName').textContent=currentUser.username;document.getElementById('userInfoPanel').style.display='flex'};
+            document.getElementById('closeUserInfoBtn').onclick=()=>document.getElementById('userInfoPanel').style.display='none';
+            document.getElementById('userLogoutBtn').onclick=()=>{currentUser=null;localStorage.removeItem('ai_current_user');document.getElementById('authOverlay').style.display='flex';document.getElementById('memoryPanel').classList.remove('show');document.getElementById('userInfoPanel').style.display='none';showToast('已退出登录')};
+
+            (function(){
+                const saved=localStorage.getItem('ai_current_user');
+                if(saved){try{currentUser=JSON.parse(saved);document.getElementById('authOverlay').style.display='none';updateMemoryUI()}catch{currentUser=null}}
+            })();
+
+            function updateModeUI(mode){
+                currentMode=mode;
+                const greetingEl=document.getElementById('modeGreeting');
+                const descEl=document.getElementById('modeDescription');
+                const selector=document.getElementById('modeSelector');
+                if(!greetingEl||!descEl||!selector)return;
+                const greetingText=mode==='fast'?'使用快速回答开始对话':'使用超级模式开始对话';
+                const descText=mode==='fast'?'高效迅捷，适合日常对话':'处理复杂问题，高峰需等待';
+                greetingEl.classList.add('fade-out'); descEl.classList.add('fade-out');
+                setTimeout(()=>{
+                    greetingEl.textContent=greetingText; descEl.textContent=descText;
+                    greetingEl.classList.remove('fade-out'); descEl.classList.remove('fade-out');
+                },200);
+                selector.querySelectorAll('.mode-option').forEach(o=>o.classList.remove('active'));
+                const activeOpt=selector.querySelector(`[data-mode="${mode}"]`);
+                if(activeOpt)activeOpt.classList.add('active');
+                if(mode==='super')selector.classList.add('super-mode');
+                else selector.classList.remove('super-mode');
+            }
+
+            function bindWelcomeEvents(){
+                const hint=document.getElementById('hintExample');
+                if(hint)hint.onclick=()=>{messageInput.value='帮我生成一个关于宇宙的图片 16:9';messageInput.focus()};
+                const selector=document.getElementById('modeSelector');
+                if(selector){
+                    selector.addEventListener('click',(e)=>{
+                        const opt=e.target.closest('.mode-option');
+                        if(!opt)return;
+                        const mode=opt.dataset.mode;
+                        if(mode===currentMode)return;
+                        updateModeUI(mode);
                     });
                 }
-            });
-        });
+            }
+            bindWelcomeEvents();
+            updateModeUI('fast');
 
-        // 滚动动画
-        function checkScroll() {
-            const elements = document.querySelectorAll('.animate');
-            elements.forEach(element => {
-                const elementPosition = element.getBoundingClientRect().top;
-                const screenPosition = window.innerHeight / 1.2;
-                
-                if (elementPosition < screenPosition) {
-                    element.style.animationPlayState = 'running';
+            async function callApi(msg,retry=true){
+                try{
+                    const historyCtx=messageHistory.slice(0,-1).slice(-8*2).map(m=>`${m.role==='user'?'用户':'AI'}：${m.content}`).join('\n');
+                    let full=msg;
+                    if(historyCtx)full=`【对话历史】\n${historyCtx}\n\n【当前问题】\n${msg}`;
+                    const url=new URL('https://www.oiapi.net/api/BigModel');
+                    url.searchParams.append('message',full);
+                    url.searchParams.append('id',conversationId);
+                    url.searchParams.append('system',SYSTEM_PROMPT);
+                    const res=await fetch(url);
+                    if(!res.ok)throw new Error('HTTP '+res.status);
+                    const data=await res.json();
+                    if(data.code===1)return data.message||'';
+                    throw new Error(data.message||'API错误');
+                }catch(e){
+                    if(retry){await new Promise(r=>setTimeout(r,800));return callApi(msg,false)}
+                    throw e;
                 }
-            });
-        }
+            }
+            async function generateTopic(){
+                if(topicLocked||messageHistory.length<2)return;
+                try{
+                    const recent=messageHistory.slice(-4).map(m=>m.content).join('\n');
+                    const res=await fetch(`https://www.oiapi.net/api/BigModel?message=${encodeURIComponent(recent)}&system=${encodeURIComponent('用3-10字概括主题')}&id=topic_${Date.now()}`);
+                    const d=await res.json();
+                    if(d.code===1&&d.message){chatTopic.textContent=d.message.trim();topicLocked=true;saveCurrentDialog()}
+                }catch{}
+            }
 
-        window.addEventListener('scroll', checkScroll);
-        window.addEventListener('load', checkScroll);
+            function addTypingIndicator(text='思考中'){
+                const d=document.createElement('div');d.className='message assistant';d.id='typingIndicator';
+                d.innerHTML=`<div class="bubble"><div class="typing-indicator"><span>${text}</span><div class="dot-flashing"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div></div>`;
+                chatMessages.appendChild(d);scrollToBottom();
+            }
+            function removeTypingIndicator(){const el=document.getElementById('typingIndicator');if(el)el.remove()}
+
+            async function typewritePlainText(container,text){
+                const div=document.createElement('div');container.appendChild(div);
+                for(let i=0;i<text.length;i++){
+                    const ch=text[i];
+                    if(ch==='\n')div.appendChild(document.createElement('br'));
+                    else{const span=document.createElement('span');span.className='fade-char';span.textContent=ch;div.appendChild(span)}
+                    scrollToBottom();await new Promise(r=>setTimeout(r,15));
+                }
+            }
+            async function typewriteTextSegment(container,text){
+                const p=document.createElement('div');p.style.marginBottom='6px';container.appendChild(p);
+                let cur='';
+                for(let i=0;i<text.length;i++){
+                    const ch=text[i];
+                    if(ch==='\n')cur+='<br>';else cur+=ch;
+                    p.innerHTML=cur.replace(/\*\*(.*?)\*\*/g,'<strong class="ai-bold">$1</strong>');
+                    scrollToBottom();await new Promise(r=>setTimeout(r,15));
+                }
+                p.innerHTML=p.innerHTML.replace(/`([^`]+)`/g,'<code class="inline-code">$1</code>');
+            }
+            function createCodeBlock(lang){
+                const w=document.createElement('div');w.className='code-block-wrapper';
+                const displayLang=lang==='js'?'javascript':lang;
+                w.innerHTML=`<div class="code-header"><span class="code-lang">${displayLang}</span><div class="code-actions"><button class="code-btn copy-btn"><i class="far fa-copy"></i> 复制</button>${(lang==='javascript'||lang==='js'||lang==='html')?'<button class="code-btn run-btn"><i class="fas fa-play"></i> 运行</button>':''}</div></div><div class="code-body"><pre><code class="language-${displayLang}"></code></pre></div>`;
+                w.querySelector('.copy-btn').onclick=()=>{navigator.clipboard.writeText(w.querySelector('code').textContent).then(()=>showToast('已复制'))};
+                const runBtn=w.querySelector('.run-btn');
+                if(runBtn){
+                    runBtn.onclick=()=>{
+                        const code=w.querySelector('code').textContent;
+                        if(lang==='javascript'||lang==='js'){
+                            let out=w.nextElementSibling;
+                            if(!out?.classList.contains('execution-output')){out=document.createElement('div');out.className='execution-output';w.after(out)}
+                            out.textContent=(()=>{let o='';const l=console.log;console.log=(...a)=>{o+=a.join(' ')+'\n'};try{new Function(code)()}catch(e){o+='错误: '+e.message}console.log=l;return o.trim()||'(无输出)'})();
+                        }else{
+                            let preview=w.nextElementSibling;
+                            if(!preview?.classList.contains('html-preview')){preview=document.createElement('div');preview.className='html-preview';w.after(preview)}
+                            preview.innerHTML='';const iframe=document.createElement('iframe');iframe.sandbox='allow-scripts allow-same-origin';preview.appendChild(iframe);
+                            iframe.contentDocument.open();iframe.contentDocument.write(code);iframe.contentDocument.close();
+                        }
+                    };
+                }
+                return w;
+            }
+            async function typewriteReply(container,rawText,onRunnable){
+                messageHistory.push({role:'assistant',content:rawText});generateTopic();
+                const seg=[];let last=0;const re=/```(\w*)\s*([\s\S]*?)```/g;let m;
+                while((m=re.exec(rawText))!==null){
+                    const lang=m[1].trim().toLowerCase()||'plain',code=m[2].trim();
+                    if(m.index>last)seg.push({type:'text',content:rawText.substring(last,m.index).trim()});
+                    seg.push({type:'code',lang,code});last=m.index+m[0].length;
+                }
+                if(last<rawText.length)seg.push({type:'text',content:rawText.substring(last).trim()});
+                const runnable=[];
+                for(const s of seg){
+                    if(s.type==='text'){if(s.content)await typewriteTextSegment(container,s.content)}
+                    else{
+                        const block=createCodeBlock(s.lang);container.appendChild(block);
+                        const codeEl=block.querySelector('code');
+                        for(let i=0;i<s.code.length;i++){codeEl.textContent+=s.code[i];scrollToBottom();await new Promise(r=>setTimeout(r,8))}
+                        hljs.highlightElement(codeEl);
+                        if(s.code.split('\n').slice(0,3).some(l=>(s.lang==='javascript'||s.lang==='js')?l.trim().startsWith('// @run'):s.lang==='html'&&l.includes('<!-- @run -->'))){
+                            runnable.push({lang:s.lang,code:s.code,wrapper:block});
+                        }
+                    }
+                }
+                if(onRunnable)onRunnable(runnable);
+            }
+            function parseDeepThink(reply){
+                const m=reply.match(/(?:思考过程|思考|深度思考)[：:]\s*([\s\S]*?)(?:最终回答|最终答案|回答)[：:]\s*([\s\S]*)/i);
+                return m?{think:m[1].trim(),answer:m[2].trim()}:{think:'',answer:reply.trim()};
+            }
+            async function displayReply(reply,container,isDeep){
+                const msgDiv=document.createElement('div');msgDiv.className='message assistant';container.appendChild(msgDiv);
+                if(isDeep){
+                    const{think,answer}=parseDeepThink(reply);
+                    const card=document.createElement('div');card.className='deep-thought-card';
+                    card.innerHTML=`<div class="deep-card-header"><div class="deep-label"><i class="fas fa-brain"></i> 思考中...</div></div>`;
+                    msgDiv.appendChild(card);
+                    const content=document.createElement('div');content.className='deep-content';card.querySelector('.deep-card-header').after(content);
+                    await new Promise(r=>setTimeout(r,600));
+                    if(think)await typewritePlainText(content,think);
+                    card.querySelector('.deep-label').innerHTML='<i class="fas fa-check-circle"></i> 已思考';
+                    card.classList.add('done');
+                    const bubble=document.createElement('div');bubble.className='bubble';msgDiv.appendChild(bubble);
+                    await typewriteReply(bubble,answer||reply);
+                }else{
+                    const bubble=document.createElement('div');bubble.className='bubble';msgDiv.appendChild(bubble);
+                    const{answer}=parseDeepThink(reply);
+                    await typewriteReply(bubble,answer||reply);
+                }
+                const copyBtn=document.createElement('button');copyBtn.className='copy-full-btn';
+                copyBtn.innerHTML='<i class="far fa-copy"></i> 复制全文';
+                copyBtn.onclick=()=>{navigator.clipboard.writeText(reply).then(()=>showToast('已复制'))};
+                msgDiv.appendChild(copyBtn);
+            }
+
+            async function generateImage(prompt,container,skipUser=false){
+                const cleanPrompt=prompt.replace(/(帮我生成|生成一张|画一张|画一个|生成图片)/gi,'').trim()||prompt;
+                let ratio='1:1';
+                const ratioMatch=cleanPrompt.match(/(\d+:\d+)/);
+                if(ratioMatch)ratio=ratioMatch[1];
+                const enhancedPrompt=cleanPrompt+', high quality, detailed, sharp focus, professional lighting, 8k';
+                const imgUrl=`https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?model=flux&enhance=true&nologo=true&seed=${Math.floor(Math.random()*100000)}`;
+                if(!skipUser){
+                    const userDiv=document.createElement('div');userDiv.className='message user';
+                    userDiv.innerHTML=`<div class="avatar"><i class="fas fa-user"></i></div><div class="bubble">${escapeHtml(prompt)}</div>`;
+                    container.appendChild(userDiv);
+                }
+                const msgDiv=document.createElement('div');msgDiv.className='message assistant';
+                const hintDiv=document.createElement('div');hintDiv.className='bubble';
+                msgDiv.appendChild(hintDiv);
+                await typewritePlainText(hintDiv,`我将为你生成这张关于${cleanPrompt}的图片，使用增强模型`);
+                const skeleton=document.createElement('div');skeleton.className='image-skeleton';
+                const[rw,rh]=ratio.split(':').map(Number);
+                const aspect=(rh&&rw)?(rh/rw):1;
+                skeleton.style.paddingBottom=`${aspect*100}%`;skeleton.style.height='0';
+                skeleton.innerHTML=`<div class="ratio-label">${ratio}</div>`;
+                const grid=document.createElement('div');grid.className='dots-grid';
+                grid.style.position='absolute';grid.style.inset='0';
+                const cols=5,rows=Math.max(4,Math.round(cols*aspect));
+                grid.style.gridTemplateColumns=`repeat(${cols},1fr)`;grid.style.gridTemplateRows=`repeat(${rows},1fr)`;
+                for(let i=0;i<cols*rows;i++){const dot=document.createElement('div');dot.className='skeleton-dot';grid.appendChild(dot)}
+                skeleton.appendChild(grid);
+                const footer=document.createElement('div');footer.className='skeleton-footer';
+                footer.innerHTML=`<span><i class="fas fa-circle-notch fa-spin"></i> 生成中</span>`;
+                const progressBar=document.createElement('div');progressBar.className='progress-bar';
+                progressBar.innerHTML=`<div class="progress-fill" style="width:0%"></div>`;
+                footer.appendChild(progressBar);skeleton.appendChild(footer);
+                msgDiv.appendChild(skeleton);container.appendChild(msgDiv);scrollToBottom(container);
+                let progress=0;
+                const progressInterval=setInterval(()=>{progress=Math.min(progress+Math.random()*22,90);const fill=progressBar.querySelector('.progress-fill');if(fill)fill.style.width=`${progress}%`},180);
+                return new Promise((resolve)=>{
+                    const img=new Image();
+                    img.onload=function(){
+                        clearInterval(progressInterval);
+                        const fill=progressBar.querySelector('.progress-fill');if(fill)fill.style.width='100%';
+                        setTimeout(()=>{
+                            const imgCard=document.createElement('div');imgCard.className='image-card';
+                            const imgContainer=document.createElement('div');imgContainer.className='img-container';
+                            imgContainer.style.paddingBottom=`${aspect*100}%`;
+                            const imgEl=document.createElement('img');imgEl.src=imgUrl;imgEl.alt=cleanPrompt;imgEl.loading='lazy';
+                            imgContainer.appendChild(imgEl);imgCard.appendChild(imgContainer);
+                            const caption=document.createElement('div');caption.className='img-caption';caption.textContent=`🎨 ${cleanPrompt}`;
+                            imgCard.appendChild(caption);
+                            skeleton.replaceWith(imgCard);
+                            scrollToBottom(container);
+                            messageHistory.push({role:'assistant',content:`[生成图片: ${cleanPrompt}]`});
+                            generateTopic();saveCurrentDialog();
+                            resolve(true);
+                        },200);
+                    };
+                    img.onerror=function(){
+                        clearInterval(progressInterval);
+                        const failCard=document.createElement('div');failCard.className='image-card';
+                        failCard.innerHTML=`<div style="padding:30px;text-align:center;color:var(--danger);"><i class="fas fa-exclamation-triangle"></i> 图片生成失败，请稍后重试</div>`;
+                        skeleton.replaceWith(failCard);
+                        resolve(false);
+                    };
+                    img.src=imgUrl;
+                });
+            }
+
+            async function recognizeImage(file){
+                const p=await new Promise(resolve=>{const img=new Image();img.onload=()=>{const c=document.createElement('canvas');c.width=img.width;c.height=img.height;c.getContext('2d').drawImage(img,0,0);c.toBlob(resolve,'image/png')};img.src=URL.createObjectURL(file)});
+                const{data:{text}}=await Tesseract.recognize(p,'chi_sim+eng');return text.trim();
+            }
+
+            async function sendMessage(){
+                let raw=messageInput.value.trim();
+                if(!raw&&!pendingImage)return;
+                if(isWaiting||autoProcessing)return;
+                const welcome=document.getElementById('welcomeBlock');if(welcome)welcome.remove();
+                if(/生成视频|视频生成/i.test(raw)&&!pendingImage){messageInput.value='';return}
+                const img=pendingImage;pendingImage=null;
+                document.getElementById('imagePreviewContainer').style.display='none';
+                messageInput.value='';messageInput.style.height='auto';
+                isWaiting=true;sendBtn.disabled=true;
+                let ocr='';
+                if(img){showToast('分析图片...');try{ocr=await recognizeImage(img.file)}catch{}}
+                let fullText=raw;
+                if(ocr)fullText=`图片内容：${ocr}`+(raw?`\n用户说明：${raw}`:'');
+                const userDiv=document.createElement('div');userDiv.className='message user';
+                userDiv.innerHTML=`<div class="avatar"><i class="fas fa-user"></i></div><div class="bubble">${img?`<img src="${img.dataUrl}" style="max-width:160px;border-radius:10px;margin-bottom:4px;"><br>`:''}${escapeHtml(raw||'')}</div>`;
+                chatMessages.appendChild(userDiv);messageHistory.push({role:'user',content:fullText});scrollToBottom();
+                if(img&&/生成|画|create/i.test(raw)){
+                    try{await generateImage(fullText,chatMessages,true)}finally{isWaiting=false;sendBtn.disabled=false}
+                    return;
+                }
+                if(/帮我生成|生成一张|画一张|生成图片/.test(raw)&&!img){
+                    try{await generateImage(raw,chatMessages)}finally{isWaiting=false;sendBtn.disabled=false}
+                    return;
+                }
+                let apiMsg=fullText+(currentMode==='fast'?'（请简洁回答）':'（请详细严谨回答）');
+                if(deepThinkEnabled&&!img)apiMsg=fullText+'（深度思考模式）'+apiMsg;
+                addTypingIndicator(deepThinkEnabled?'深度思考中...':'');
+                try{
+                    const reply=await callApi(apiMsg);
+                    removeTypingIndicator();
+                    await displayReply(reply,chatMessages,deepThinkEnabled&&!img);
+                }catch(e){
+                    removeTypingIndicator();
+                    const errDiv=document.createElement('div');errDiv.className='message assistant';
+                    errDiv.innerHTML=`<div class="bubble" style="color:var(--danger);">哎呀，网络似乎出了点小问题，请稍后再试～</div>`;
+                    chatMessages.appendChild(errDiv);
+                }finally{isWaiting=false;sendBtn.disabled=false;saveCurrentDialog()}
+            }
+
+            document.getElementById('sendBtn').onclick=sendMessage;
+            messageInput.onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage()}};
+            document.getElementById('clearChatBtn').onclick=()=>{
+                if(isWaiting)return;
+                if(chatTopic.textContent&&chatTopic.textContent!=='新对话')saveCurrentDialog();
+                chatMessages.innerHTML=`<div class="empty-chat" id="welcomeBlock"><p class="mode-greeting" id="modeGreeting">使用${currentMode==='fast'?'快速回答':'超级模式'}开始对话</p><span class="hint-example" id="hintExample">试试说：帮我生成一个关于宇宙的图片 16:9</span><div class="mode-selector" id="modeSelector"><div class="mode-indicator"></div><span class="mode-option active" data-mode="fast">⚡ 快速回答</span><span class="mode-option" data-mode="super">🌟 超级模式</span></div><div class="mode-description" id="modeDescription">${currentMode==='fast'?'高效迅捷，适合日常对话':'处理复杂问题，高峰需等待'}</div></div>`;
+                conversationId='chat_'+Date.now();messageHistory=[];topicLocked=false;chatTopic.textContent='新对话';
+                bindWelcomeEvents();
+                if(currentMode==='super')document.getElementById('modeSelector').classList.add('super-mode');
+                pendingImage=null;document.getElementById('imagePreviewContainer').style.display='none';
+            };
+            document.getElementById('deepThinkBtn').onclick=()=>{deepThinkEnabled=!deepThinkEnabled;deepThinkBtn.classList.toggle('active')};
+            document.getElementById('attachFileBtn').onclick=()=>{
+                const inp=document.createElement('input');inp.type='file';inp.accept='image/*';
+                inp.onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{pendingImage={dataUrl:ev.target.result,file:f};document.getElementById('previewImg').src=ev.target.result;document.getElementById('imagePreviewContainer').style.display='flex'};r.readAsDataURL(f)};
+                inp.click();
+            };
+            document.getElementById('removePreviewBtn').onclick=()=>{pendingImage=null;document.getElementById('imagePreviewContainer').style.display='none'};
+        })();
     </script>
 </body>
 </html>
