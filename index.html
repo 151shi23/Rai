@@ -221,6 +221,20 @@
         .mode-greeting { font-weight: 500; color: var(--text); font-size: 0.95rem; transition: opacity 0.3s, transform 0.3s; }
         .mode-greeting.fade-out { opacity: 0; transform: translateY(-10px); }
         .ai-bold { font-weight: 700; color: var(--text); background: linear-gradient(120deg, rgba(79,110,247,0.08) 0%, rgba(124,148,251,0.15) 100%); padding: 2px 6px; border-radius: 4px; }
+        .sponsor-banner {
+            background: linear-gradient(90deg, #eef1ff, #f5f0ff);
+            text-align: center;
+            padding: 7px 14px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-light);
+            flex-shrink: 0;
+            letter-spacing: 0.02em;
+        }
+        .sponsor-banner b {
+            color: var(--accent);
+            font-weight: 650;
+        }
         @media(max-width:640px) {
             body { padding: 0; }
             .chat-container { height: 100vh; max-height: 100vh; border-radius: 0; }
@@ -264,6 +278,7 @@
                 <button class="btn-icon-circle" id="clearChatBtn" title="新对话"><i class="fas fa-plus"></i></button>
             </div>
         </div>
+        <div class="sponsor-banner">此网页服务由<b>烬火社区</b>提供支持，内容与烬火社区无关</div>
         <div class="chat-messages" id="chatMessages">
             <div class="empty-chat" id="welcomeBlock">
                 <p class="mode-greeting" id="modeGreeting">使用快速回答开始对话</p>
@@ -299,7 +314,7 @@
         </div>
     </div>
     <div id="toast"></div>
-    <div style="position:fixed;bottom:0;left:0;right:0;text-align:center;padding:6px 12px;font-size:0.72rem;color:var(--text-muted);background:rgba(255,255,255,0.8);backdrop-filter:blur(10px);z-index:50;pointer-events:none;">此网页服务由烬火社区提供支持，内容与烬火社区无关</div>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
